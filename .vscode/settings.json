@@ -1,0 +1,19 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#015313",
+        "activityBar.activeBorder": "#e7e7e7",
+        "activityBar.background": "#366941",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#155e02",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "statusBar.background": "#366941",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#015313",
+        "titleBar.activeBackground": "#366941",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#366941",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "window.title": "TXD Package - ${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName}"
+}

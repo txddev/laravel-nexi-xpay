@@ -1,0 +1,33 @@
+{
+    "name": "txd/x-pay",
+    "description": "Helpers per la costruzione e gestione di form, filtri e grid",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Francesco Sabato",
+            "email": "francesco@techseed.it"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Txd\\XPay\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap":["tests"]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Txd\\XPay\\XPayServiceProvider"
+            ]
+        }
+    },
+    "repositories": [
+        { "type": "composer", "url": "https://composer.techseed.it/" }
+    ],
+    "require": {
+        "illuminate/support": "^9.0"
+    }
+}
