@@ -20,19 +20,42 @@ class XPayServiceProvider extends ServiceProvider
             Route::get("url",function(Request $request){
                 $esito = XpayEsito::fromRequest($request);
                 if(!is_null($esito)){
-                    $esito->save();
+                    if(is_null($duplicate = XpayEsito::findDuplicate($esito))){
+                        $esito->save();
+                    }else{
+                        $esito = $duplicate;
+                    }
                     return XPayManager::urlAction($esito);
                 }
                 return XPayManager::errorAction();
             })->name("url");
+            
             Route::get("url_back",function(Request $request){
                 $esito = XpayEsito::fromRequest($request);
                 if(!is_null($esito)){
-                    $esito->save();
+                    if(is_null($duplicate = XpayEsito::findDuplicate($esito))){
+                        $esito->save();
+                    }else{
+                        $esito = $duplicate;
+                    }
                     return XPayManager::urlBackAction($esito);
                 }
                 return XPayManager::errorAction();
             })->name("url_back");
+            
+            Route::post("url_post",function(Request $request){
+                $esito = XpayEsito::fromRequest($request);
+                if(!is_null($esito)){
+                    if(is_null($duplicate = XpayEsito::findDuplicate($esito))){
+                        $esito->save();
+                    }else{
+                        $esito = $duplicate;
+                    }
+                    return XPayManager::urlPostAction($esito);
+                }
+                return XPayManager::errorAction();
+            })->name("url_post");
+            
         });
     }
     

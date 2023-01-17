@@ -79,6 +79,15 @@ class XpayEsito extends Model
 		
 	}
 	
+	public static function findDuplicate(XpayEsito $esito){
+		return static::where("codTrans",$esito->codTrans)
+			->where("esito",$esito->esito)
+			->where("alias",$esito->alias)
+			->where("importo",$esito->importo)
+			->when($esito->data,fn($q)=>$q->where("data",$esito->data))
+			->when($esito->orario,fn($q)=>$q->where("orario",$esito->orario))->first();
+	}
+	
 	public function pagamento()
 	{
 		return $this->belongsTo(XpayPagamento::class, 'codTrans', 'codTrans');
