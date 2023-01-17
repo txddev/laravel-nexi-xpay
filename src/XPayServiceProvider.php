@@ -2,7 +2,12 @@
 
 namespace Txd\XPay;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
+use Txd\XPay\View\Components\Form;
+use Illuminate\Support\Facades\Route;
+use Txd\XPay\Models\XpayEsito;
+use Txd\XPay\XPayManager;
 
 /**
  *  *
@@ -10,7 +15,59 @@ use Illuminate\Support\ServiceProvider;
  */
 class XPayServiceProvider extends ServiceProvider
 {
+    public function registerRoutes(){
+        Route::middleware('web')->prefix("/xpay")->name("xpay.")->group(function(){
+            Route::get("url",function(Request $request){
+                $esito = XpayEsito::fromRequest($request);
+                if(!is_null($esito)){
+                    $esito->save();
+                    return XPayManager::urlAction($esito);
+                }
+                return XPayManager::errorAction();
+            })->name("url");
+            Route::get("url_back",function(Request $request){
+                $esito = XpayEsito::fromRequest($request);
+                if(!is_null($esito)){
+                    $esito->save();
+                    return XPayManager::urlBackAction($esito);
+                }
+                return XPayManager::errorAction();
+            })->name("url_back");
+        });
+    }
+    
+    public function registerConfig(){
+        $this->publishes([
+			__DIR__.'/config/xpay.php' => config_path('xpay.php'),
+		], "xpay:config");
 
+        $this->mergeConfigFrom(
+            __DIR__.'/config/xpay.php', 'xpay'
+        );
+    }
+    
+    public function bootViews(){
+        $this->publishes([
+			__DIR__.'/views/' => base_path('resources/views/vendor/txd/XPay'),
+        ], "txd_forms:views");
+        
+		$this->loadViewsFrom(base_path('resources/views/vendor/txd/XPay'), 'xpay');
+		$this->loadViewsFrom(__DIR__.'/views', 'xpay');
+        $this->loadViewComponentsAs('xpay', $this->viewComponents());
+    }
+    
+    public function bootMigrations(){
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+    }
+    
+    protected function viewComponents(): array
+    {
+        return [
+            Form::class
+        ];
+    }
+    
+    
     /**
      * Boot the service provider.
      *
@@ -18,22 +75,8 @@ class XPayServiceProvider extends ServiceProvider
      */
     public function boot()
     {   
-        $this->publishes([
-			__DIR__.'/config/txd_forms.php' => config_path('txd_forms.php'),
-		], "txd_forms:config");
-
-        $this->publishes([
-			__DIR__.'/../views/Forms' => base_path('resources/views/vendor/txd/Forms'),
-        ], "txd_forms:views");
-        
-        $this->mergeConfigFrom(
-			__DIR__.'/../config/txd_forms.php', 'txd_forms'
-		);
-
-        //caricamento namespace per view
-		$this->loadViewsFrom(base_path('resources/views/vendor/txd'), 'txd');
-		$this->loadViewsFrom(__DIR__.'/../views', 'txd');
-        
+        $this->bootMigrations();
+        $this->bootViews();
     }
 
     /**
@@ -43,7 +86,8 @@ class XPayServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    
+        $this->registerConfig();
+        $this->registerRoutes();
     }
 
     

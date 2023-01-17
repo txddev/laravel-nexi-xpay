@@ -1,5 +1,5 @@
 {
-    "name": "txd/x-pay",
+    "name": "txd/nexi-xpay",
     "description": "Helpers per la costruzione e gestione di form, filtri e grid",
     "type": "library",
     "license": "MIT",
@@ -28,6 +28,6 @@
         { "type": "composer", "url": "https://composer.techseed.it/" }
     ],
     "require": {
-        "illuminate/support": "^9.0"
+        "laravel/framework": "^9.31"
     }
 }
