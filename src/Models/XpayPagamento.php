@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
  * @property string $divisa
  * @property string $url
  * @property string $url_back
+ * @property string $urlpost
  * @property string $mac
  * @property int $tentativi
  * @property array $facoltativi_json

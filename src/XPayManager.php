@@ -42,11 +42,11 @@ class XPayManager {
     
     protected static $urlPostCallback = null;
     public static function setUrlPostAction(Closure $action) {
-        static::$urlCallback = $action;
+        static::$urlPostCallback = $action;
     }
     
     public static function urlPostAction(XpayEsito $esito){
-        $action = static::$urlCallback;
+        $action = static::$urlPostCallback;
         if(is_null($action)){
             $action = function(XpayEsito $e){
                 return "PAYMENT STATUS:".$e->esito;  
