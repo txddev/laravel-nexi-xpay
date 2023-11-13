@@ -28,6 +28,7 @@
         { "type": "composer", "url": "https://composer.techseed.it/" }
     ],
     "require": {
+        "robinvdvleuten/ulid": "^5.0",
         "laravel/framework": "^6.0|^9.31|^10.0"
     }
 }
