@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateXpayPagamentiTable extends Migration
 {
 
 
@@ -17,7 +17,7 @@ return new class extends Migration
 	{
         Schema::create('xpay_pagamenti', function(Blueprint $table)
         {
-            $table->ulid("codTrans")->primary();
+            $table->char("codTrans", 26)->primary();
 			$table->string('alias');
 			$table->integer('importo');
 			$table->string('divisa');

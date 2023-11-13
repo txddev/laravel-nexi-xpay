@@ -76,9 +76,7 @@ class XPayServiceProvider extends ServiceProvider
         
 		$this->loadViewsFrom(base_path('resources/views/vendor/txd/XPay'), 'xpay');
 		$this->loadViewsFrom(__DIR__.'/views', 'xpay');
-        if(method_exists($this, 'loadViewComponentsAs')){
-            $this->loadViewComponentsAs('xpay', $this->viewComponents());
-        }
+        
         
     }
     

@@ -3,10 +3,11 @@
 namespace Txd\XPay;
 
 use Closure;
+
 use Illuminate\Http\Request;
 use Txd\XPay\Models\XpayEsito;
 use Txd\XPay\Models\XpayPagamento;
-use Txd\XPay\View\Components\Form;
+use Txd\XPay\Form;
 
 class XPayManager {
     

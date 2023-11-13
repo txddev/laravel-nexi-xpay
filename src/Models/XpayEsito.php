@@ -57,7 +57,7 @@ class XpayEsito extends Model
 			"divisa" => ["required","string"],
 			"codTrans" => ["required","string"],
 			// required only on esito
-			"mac" => ["sometimes","required",new MacEsito],
+			"mac" => ["sometimes","required",new MacEsito($request->input())],
 			"codAut" => ["string","required_with:mac"],
 			"data" => ["string","required_with:mac"],
 			"orario" => ["string","required_with:mac"],
@@ -84,8 +84,8 @@ class XpayEsito extends Model
 			->where("esito",$esito->esito)
 			->where("alias",$esito->alias)
 			->where("importo",$esito->importo)
-			->when($esito->data,fn($q)=>$q->where("data",$esito->data))
-			->when($esito->orario,fn($q)=>$q->where("orario",$esito->orario))->first();
+			->when($esito->data,function($q) use ($esito){$q->where("data",$esito->data);})
+			->when($esito->orario,function($q) use($esito) {$q->where("orario",$esito->orario);})->first();
 	}
 	
 	public function pagamento()

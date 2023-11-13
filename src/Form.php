@@ -1,15 +1,13 @@
 <?php
  
-namespace Txd\XPay\View\Components;
+namespace Txd\XPay;
  
-use Illuminate\View\Component;
 use Txd\XPay\Models\XpayPagamento;
 
-
-class Form extends Component
+class Form 
 {
-    public XpayPagamento $avvio;
-    public string $requestUrl;
+    public $avvio;
+    public $requestUrl;
  
     /**
      * Create the component instance.
@@ -32,6 +30,6 @@ class Form extends Component
      */
     public function render()
     {        
-        return view('xpay::form');
+        return view('xpay::form', ['avvio' => $this->avvio, 'requestUrl' => $this->requestUrl]);
     }
 }

@@ -8,7 +8,8 @@ namespace Txd\XPay\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Txd\XPay\Models\Traits\HasUlids;
+use Ulid\Ulid;
 
 /**
  * Class XpayPagamento
@@ -52,7 +53,7 @@ class XpayPagamento extends Model
 		$pagamento = new static;
 		$pagamento->alias = config("xpay.alias");
         $pagamento->importo = round($importo,2)*100;
-		$pagamento->codTrans = \Illuminate\Support\Str::ulid()->__toString();
+		$pagamento->codTrans = Ulid::generate(true)->__toString();
         $pagamento->mac();
         $pagamento->url = route("xpay.url");
         $pagamento->url_back = route("xpay.url_back");

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateXpayEsitiTable extends Migration
 {
 
 
@@ -19,7 +19,7 @@ return new class extends Migration
         {
 	    	
 			$table->bigIncrements("id");
-            $table->ulid('codTrans');
+            $table->char("codTrans", 26);
 			$table->string("esito");
 			$table->string("codiceEsito")->nullable();
 			$table->text("messaggio")->nullable();
